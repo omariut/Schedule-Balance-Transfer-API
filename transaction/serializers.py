@@ -1,5 +1,6 @@
 from transaction.models import Account,Transfer,TransactionHistory, CashTransaction
-from rest_framework.serializers import ModelSerializer,Serializer, SerializerMethodField
+from rest_framework.serializers import ModelSerializer,Serializer, SerializerMethodField, CharField
+
 
 class AccountSerializer(ModelSerializer):
     
@@ -8,6 +9,7 @@ class AccountSerializer(ModelSerializer):
         fields = '__all__'
 
 class TransferSerializer(ModelSerializer):
+    status = CharField(read_only=True)
     
     class Meta:
         model =  Transfer

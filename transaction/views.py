@@ -147,6 +147,11 @@ class  CashTransactionListCreateAPIView(ListCreateAPIView):
         dw_obj = [ CashTransaction(account_id=data['account'], type=data['type'], amount = data['amount'], status='success') for data in request.data]
         account_ids = [item['account'] for item in request.data]
         accounts = Account.objects.filter(id__in = account_ids).values('id', 'balance')
+        account_ids_in_db = {}
+        for item in accounts:
+            account_ids_in_db[item['id']] = item['id']
+
+        check_account_exist_in_db(account_ids, account_ids_in_db)
         history_objects = []
         mapping_account_balances = {}
         
@@ -163,8 +168,11 @@ class  CashTransactionListCreateAPIView(ListCreateAPIView):
             if type == 'deposit':
                 new_balance = old_balance + amount
             
-            else:
+            elif type =='withdrawal':
                 new_balance = old_balance - amount
+            else:
+                error_message = {"message": "Unknown type", "data": type}
+                raise ValueError(error_message)
 
             mapping_account_balances[account] = new_balance
     
