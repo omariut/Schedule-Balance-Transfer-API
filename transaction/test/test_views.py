@@ -123,7 +123,7 @@ class UpdateSingleAccountTest(TestCase):
             name='Abdullah', contact='01787553321', balance=1000)
 
         self.valid_payload ={"balance" : 500.0}
-        self.invalid_payload_contact_repeat = {"contact": self.omar.contact}
+        self.invalid_payload_contact_repeat = {"contact": self.faruk.contact}
         self.invalid_payload_negative_balance = {"balance": -1000 }
 
     def test_valid_update_account(self):
@@ -143,9 +143,7 @@ class UpdateSingleAccountTest(TestCase):
             data=json.dumps(self.invalid_payload_contact_repeat),
             content_type='application/json'
         )
-        print(response.json())
-        print(self.omar)
-        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_invalid_update_account_negative_balance(self):
         response = client.patch(

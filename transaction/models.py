@@ -11,7 +11,7 @@ class StatusType(models.TextChoices):
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    updated_at = models.DateTimeField(null=True,blank=True)
     class Meta:
         abstract = True
 
@@ -31,7 +31,7 @@ class Account(BaseModel):
         ]
     
     def __str__(self):
-        return str(self.contact)
+        return str(self.name)
 
 class  CashTransaction(BaseModel):
     
@@ -53,7 +53,7 @@ class  CashTransaction(BaseModel):
             models.Index(fields=['type'])
         ]
     def __str__(self):
-        return f'{self.account.contact} - {self.created_at} -{self.type}'
+        return f'{self.account.name} - {self.created_at} -{self.type}'
 
 
 class Transfer(BaseModel):
@@ -72,7 +72,7 @@ class Transfer(BaseModel):
             models.Index(fields=['amount'])
         ]
     def __str__(self):
-        return f'{self.source_account.contact} to {self.destination_account.contact}'
+        return f'{self.source_account.name} to {self.destination_account.name}'
 
 
 class TransactionHistory(BaseModel):
@@ -97,7 +97,7 @@ class TransactionHistory(BaseModel):
             models.Index(fields=['type'])
         ]
     def __str__(self):
-        return f'{self.account.contact}'
+        return f'{self.account.name}'
 
 
 

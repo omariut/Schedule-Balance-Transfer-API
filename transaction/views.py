@@ -12,6 +12,7 @@ from django.db import transaction
 from django.utils import timezone
 from utils.validators import validate_positive_amount, check_transfer_not_in_same_account,check_account_exist_in_db
 from django.core.exceptions import BadRequest
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -62,7 +63,7 @@ class TransferListCreateAPIView(ListCreateAPIView):
             Transfer(source_account_id=transfer['source_account'], 
             destination_account_id=transfer['destination_account'], 
             amount=transfer['amount'],
-            time = transfer['time'],
+            time = transfer.get('time', timezone.now()),
             status='success') for transfer in transfers
         )
         return Transfer.objects.bulk_create(transfer_objects_to_create) 
@@ -88,7 +89,7 @@ class TransferListCreateAPIView(ListCreateAPIView):
             if account_type == 'source_account':
                 source_account_old_balance = mapping_source_account_balances[id]
                 transaction_history = TransactionHistory(account_id = id, transfer_account_id=transfer_data['destination_account'], amount= amount, old_balance = source_account_old_balance, type ='debit', )
-                mapping_source_account_balances[id] = float(mapping_source_account_balances[id]) - amount
+                mapping_source_account_balances[id] = mapping_source_account_balances[id] - amount
                 if mapping_source_account_balances[id] < 0:
                     error_message = {"message": "Balance Shortage", "data": transfer_data}
                     raise BadRequest(error_message)
@@ -103,7 +104,7 @@ class TransferListCreateAPIView(ListCreateAPIView):
             else:
                 if transfer_time <= current_time:
                     transaction_history = TransactionHistory(account_id = id, transfer_account_id=transfer_data['source_account'], amount= amount, old_balance = mapping_source_account_balances[id], type ='credit', )
-                    mapping_source_account_balances[id] =  float(mapping_source_account_balances[id]) + amount
+                    mapping_source_account_balances[id] =  mapping_source_account_balances[id] + amount
                 else:
                     continue
             
@@ -156,7 +157,7 @@ class  CashTransactionListCreateAPIView(ListCreateAPIView):
         for data in request.data:
             account = data['account']
             amount = data['amount']
-            old_balance = float(mapping_account_balances[account])
+            old_balance = mapping_account_balances[account]
             type = data['type']
             
             if type == 'deposit':
@@ -208,5 +209,13 @@ class TransactionHistoryListAPIView(ListAPIView):
         get_object_or_404(Account, id = account_id )
         return TransactionHistory.objects.filter(account=account_id)
 
+def reset_db(request):
+    Transfer.objects.all().delete()
+    TransactionHistory.objects.all().delete()
+    CashTransaction.objects.all().delete()
+    Account.objects.all().update(balance=500)
+    data =  Account.objects.all()
+    
+    return HttpResponse(content=data)
 
 
