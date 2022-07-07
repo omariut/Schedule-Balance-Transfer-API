@@ -8,3 +8,7 @@ Project_Default.xml
 .venv
 *.log
 strat.sh
+celerybeat-schedule.db
+celerybeat.pid
+dump.rdb
+
