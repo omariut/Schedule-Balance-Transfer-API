@@ -1,0 +1,41 @@
+"//Account1"
+{
+    "name": "Omar",
+    "contact": "01787553318",
+    "balance" : 200
+}
+
+"//Account2"
+{
+    "name": "Omar",
+    "contact": "01787553319",
+    "balance" : 200
+}
+
+"//Deposit"
+{
+    "account" : 1,
+    "type": "deposit",
+    "amount": 100.25
+}
+"//Withdrawal"
+{
+    "account" : 1,
+    "type": "withdrawal",
+    "amount": 100.25
+}
+"//transfer(now)"
+{
+
+    "source_account": 1,
+    "destination_account":2,
+    "amount": 50
+}
+"//transfer(later)"
+{
+
+    "source_account": 1,
+    "destination_account":2,
+    "amount": 50,
+    "time" :"2022-07-01T23:25:43.511Z" 
+}
