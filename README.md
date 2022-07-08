@@ -28,10 +28,10 @@ python manage.py runserver
 #### prepearing celery
 run the below commands in two different terminals
 ```sh
-celery -A picha worker -l info
+celery -A balance_transfer worker -l info
 ```
 ```sh
-celery -A picha beat -l info
+celery -A balance_transfer beat -l info
 ```
 #### install redis server
 https://redis.io/download/
