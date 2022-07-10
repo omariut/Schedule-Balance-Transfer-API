@@ -4,16 +4,20 @@ from rest_framework.serializers import (
     Serializer,
     SerializerMethodField,
     CharField,
+    DateTimeField
 )
 
 
-class AccountSerializer(ModelSerializer):
+class BaseSerializer(ModelSerializer):
+    created_at = DateTimeField(read_only=True)
+    updated_at = DateTimeField(read_only=True)
+class AccountSerializer(BaseSerializer):
     class Meta:
         model = Account
         fields = "__all__"
 
 
-class TransferSerializer(ModelSerializer):
+class TransferSerializer(BaseSerializer):
     status = CharField(read_only=True)
 
     class Meta:
@@ -21,13 +25,13 @@ class TransferSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class TransactionHistorySerializer(ModelSerializer):
+class TransactionHistorySerializer(BaseSerializer):
     class Meta:
         model = TransactionHistory
         fields = "__all__"
 
 
-class CashTransactionSerializer(ModelSerializer):
+class CashTransactionSerializer(BaseSerializer):
     class Meta:
         model = CashTransaction
         fields = "__all__"

@@ -25,6 +25,7 @@ from django.db import transaction
 from django.utils import timezone
 from utils.validators import (
     validate_positive_amount,
+    validate_payload_is_list,
     check_transfer_not_in_same_account,
     check_account_exist_in_db,
 )
@@ -65,6 +66,7 @@ class TransferListCreateAPIView(ListCreateAPIView):
 
     def create(self, request):
         for data in request.data:
+            validate_payload_is_list(data)
             validate_positive_amount(data, data["amount"])
             check_transfer_not_in_same_account(data)
 
@@ -203,6 +205,7 @@ class CashTransactionListCreateAPIView(ListCreateAPIView):
     queryset = CashTransaction.objects.filter()
 
     def create(self, request, *args, **kwargs):
+        validate_payload_is_list(request.data)
         dw_obj = [
             CashTransaction(
                 account_id=data["account"],

@@ -24,3 +24,9 @@ def check_account_exist_in_db(request_ids, db_ids):
         if not db_ids.get(id):
             error_message = {"message": "invalid object", "data": f"id: {id}"}
             raise BadRequest(error_message)
+
+def validate_payload_is_list(payload):
+    if not isinstance(payload, dict):
+
+        error_message = {"message": "payload is not a list"}
+        raise BadRequest(error_message)

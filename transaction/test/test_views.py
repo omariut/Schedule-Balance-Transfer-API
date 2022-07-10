@@ -15,13 +15,12 @@ from datetime import timedelta
 from transaction.tasks.transfer import schedule_transfer
 from celery import app
 
-# initialize the APIClient app
+#initialize the APIClient app
 client = Client()
 
 
 class GetAllAccountsTest(TestCase):
     """Test module for GET all Accounts API"""
-
     def setUp(self):
         Account.objects.create(name="Omar", contact="01787553318", balance=1000)
         Account.objects.create(name="Faruk", contact="01787553319", balance=1000)
@@ -34,7 +33,7 @@ class GetAllAccountsTest(TestCase):
         # get data from db
         accounts = Account.objects.all()
         serializer = AccountSerializer(accounts, many=True)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.data['results'], serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
@@ -280,7 +279,7 @@ class CreateNewTransferTest(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
+    # @override_settings(CELERY_TASK_ALWAYS_EAGER=True)
     def test_create_a_schedule_transfer(self):
         musa_old_balance = self.musa.balance
         omar_old_balance = self.omar.balance

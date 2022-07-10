@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nh^dgx8uo96b-ao3m)9%qpm6h8=g0(!2(m8qc@0_jtwbi450yg'
+SECRET_KEY = os.environ.get('SECRET_KEY')#'nh^dgx8uo96b-ao3m)9%qpm6h8=g0(!2(m8qc@0_jtwbi450yg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'balance_transfer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'balance_transfer',
-        'USER': 'omar',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD':os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT')
     }
 }
 
@@ -137,12 +137,22 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(settings.BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
+
+#REST Framework
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER' : 'utils.exception_handler.custom_exception_handler'
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'EXCEPTION_HANDLER': 'utils.exception_handler.custom_exception_handler',
+
 }
-# CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
+
+
+#CELERY STUFF
+BROKER_URL = os.environ.get('BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

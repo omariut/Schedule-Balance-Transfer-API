@@ -1,7 +1,7 @@
 from datetime import datetime
 from celery import shared_task
 from celery.utils.log import get_task_logger
-from celery.decorators import task
+from celery.task import task
 import os
 from django.conf import settings
 import requests
