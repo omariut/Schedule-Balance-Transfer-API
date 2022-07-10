@@ -65,8 +65,9 @@ class TransferListCreateAPIView(ListCreateAPIView):
     )
 
     def create(self, request):
+        validate_payload_is_list(request.data)
         for data in request.data:
-            validate_payload_is_list(data)
+           
             validate_positive_amount(data, data["amount"])
             check_transfer_not_in_same_account(data)
 
