@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "db077a02-dc03-46a0-95f1-21bb1d12576c",
+		"name": "BALANCE TRANSFER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ACCOUNTS",
+			"item": [
+				{
+					"name": "CREATE_ACCOUNT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"name\": \"Omar\",\n    \"contact\": \"01787553312\",\n    \"balance\" : 200.00\n\n}\n,\n   {\n    \"name\": \"Omar\",\n    \"contact\": \"01787553318\",\n    \"balance\" : 200.00\n\n}\n\n\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"balance\" : 500\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Account Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/histories/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"histories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Omar\",\n    \"contact\": \"01787553319\",\n    \"balance\" : 200\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/account/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"account",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALL_ACCOUNTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DepositOrWithdrawal List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"account\" : 20,\n    \"type\": \"withdrawal\",\n    \"amount\": 97749.75\n}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/deposit_or_withdrawals/4",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"deposit_or_withdrawals",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DIPOSIT/WITHDRAWAL",
+			"item": [
+				{
+					"name": "CREATE DIPOSIT/Withdrawal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \n{\n    \"account\" : 3,\n    \"type\": \"deposit\",\n    \"amount\": 100.25\n},\n{\n    \"account\" : 1,\n    \"type\": \"deposit\",\n    \"amount\": 100.25\n},\n{\n    \"account\" : 1,\n    \"type\": \"deposit\",\n    \"amount\": 100.25\n} \n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/deposit-or-withdrawal",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"deposit-or-withdrawal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALL Deposit/Withdrawal",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/deposit-or-withdrawal",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"deposit-or-withdrawal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TRANSFER",
+			"item": [
+				{
+					"name": "CREATE TRANSFER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\n{\n\n    \"source_account\": 3,\n    \"destination_account\":1,\n    \"amount\": 10,\n    \n   \n}\n,\n{\n\n    \"source_account\": 3,\n    \"destination_account\":4,\n    \"amount\": 4.40,\n    \"time\" :\"2022-07-06 01:23:40+06:00\"\n   \n}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/transfers",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"transfers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ALL TRANSFERs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/transfers",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"transfers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "List by Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/history",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reset",
+			"item": [
+				{
+					"name": "RESET",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
