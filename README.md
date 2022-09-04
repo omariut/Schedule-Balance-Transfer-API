@@ -1,5 +1,5 @@
 # Overview
-User can transfer balance now or later in bulk. After every successful transfer a transaction history will be created for both the accounts. Cash transaction(withdrawal or deposit) option is also available. In case of transfer failure no transaction history will be created and source account's balance will be adjusted.
+Users can transfer the balance now or later in bulk. After every successful transfer, a transaction history will be created for both accounts. A cash transaction(withdrawal or deposit) option is also available. In case of transfer failure, no transaction history will be made and the source account's balance will be adjusted.
 
 
 # Features:
